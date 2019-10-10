@@ -9,4 +9,7 @@ router.get('/category.html',categoryController.getCategoryPage);
 //监听获取所有的分类数据的请求
 router.get('/getAllCategory',categoryController.getAllCategory)
 
+// 监听新增请求
+router.get('/addNewCategory',categoryController.addNewCategory)
+
 module.exports=router;

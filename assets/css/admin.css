@@ -350,3 +350,35 @@ body {
   border-radius: 50%;
   box-shadow: 0 1px 5px #ccc;
 }
+
+/* 在这里添加一些样式控制 控制新增的图标的显示和隐藏 */
+.tubiao-container .current {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+}
+.tubiao-container {
+  position: relative;
+}
+.tubiao-container .tubiao-select {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 10px;
+  position: absolute;
+  left: 70px;
+  top: 0;
+  display: none;
+}
+.tubiao-container .tubiao-select i {
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.tubiao-container .tubiao-select i:hover {
+  background-color: #ccc;
+}
