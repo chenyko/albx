@@ -3,7 +3,9 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const session=require('express-session');
 const userRouter=require('./router/user');
-const indexRouter=require('./router/index')
+const indexRouter=require('./router/index');
+const categoryRouter=require('./router/category')
+const commentsRouter=require('./router/comments')
 const app=express();
 app.listen(8787,()=>{
     console.log('http://localhost:8787');
@@ -25,4 +27,6 @@ app.use(session({
 app.set('view engine','ejs');
 // 注册分支路由
 app.use('/admin/user',userRouter);
-app.use('/admin',indexRouter)
+app.use('/admin',indexRouter);
+app.use('/admin/category',categoryRouter);
+app.use('/admin/comments',commentsRouter)
