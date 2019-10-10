@@ -11,6 +11,8 @@ app.listen(8787,()=>{
 });
 // 处理静态资源
 app.use('/assets',express.static('assets'))
+// 处理图片资源
+app.use('/uploads',express.static('uploads'))
 // 注册body-parser中间件
 app.use(bodyParser.urlencoded({ extended: false }));
 // 注册session中间件

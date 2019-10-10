@@ -14,7 +14,9 @@ $('#btn').on('click',function () {
         url:'/admin/user/userLogin',
         type:'post',
         data,
-       sucess(res){
+       success(res){
+        //  console.log(res);
+         
           if(res.code==200){
             $('.container-fluid').text('登陆成功');
             $('#modelId').modal();

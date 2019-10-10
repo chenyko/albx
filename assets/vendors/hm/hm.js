@@ -632,7 +632,7 @@
         opts.complete = opts.complete || null;
         opts.contentType = opts.contentType || 'application/x-www-form-urlencoded';
         opts.processData = opts.processData || true;
-        console.log(opts);
+        // console.log(opts);
 
         let data = opts.data;
         if(typeof opts.data === 'object' && opts.processData === true){
