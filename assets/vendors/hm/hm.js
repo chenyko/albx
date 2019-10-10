@@ -49,7 +49,7 @@
         if (typeof selector === "string") {
             // 调用选择元素的方法
             let dom = selectElements(selector, context);
-            Array.prototype.push.apply(this,dom);
+            Array.prototype.push.apply(this, dom);
         }
         // 如果是函数，调用入口函数
         else if (typeof selector === "function") {
@@ -62,7 +62,7 @@
             selector instanceof HTMLCollection
         ) {
             let dom = toArray(selector);
-            Array.prototype.push.apply(this,dom);
+            Array.prototype.push.apply(this, dom);
         }
         // 或者原本已经是 Init 实例
         else if (selector instanceof Init) {
@@ -140,25 +140,25 @@
         return attrValue;
     }
     // prop 方法
-    Init.prototype.prop = function(name,value){
-        if(value != undefined){
-            return this.each(function(){
-                this.setAttribute(name,value);
+    Init.prototype.prop = function (name, value) {
+        if (value != undefined) {
+            return this.each(function () {
+                this.setAttribute(name, value);
             })
-        }else if(typeof name === 'object'){
-            return this.each(function(){
-                for(let key in name){
-                    if(name.hasOwnProperty(key))
-                    this.setAttribute(key,name[key]);
+        } else if (typeof name === 'object') {
+            return this.each(function () {
+                for (let key in name) {
+                    if (name.hasOwnProperty(key))
+                        this.setAttribute(key, name[key]);
                 }
             })
-        }else {
+        } else {
             return this[0].getAttribute(name);
         }
     }
     // removeAttr
-    Init.prototype.removeAttr = function(name){
-        return this.each(function(){
+    Init.prototype.removeAttr = function (name) {
+        return this.each(function () {
             this.removeAttribute(name);
         })
     }
@@ -414,10 +414,10 @@
         }
     }
 
-    Init.prototype.trigger = function(type){
+    Init.prototype.trigger = function (type) {
         let event = document.createEvent('Event');
-        event.initEvent(type,true,true);
-        return this.each(function(){
+        event.initEvent(type, true, true);
+        return this.each(function () {
             this.dispatchEvent(event);
         })
     }
@@ -537,23 +537,23 @@
         });
     }
 
-    Init.prototype.fadeIn = function(speed,fn){
-        return this.each(function(){
+    Init.prototype.fadeIn = function (speed, fn) {
+        return this.each(function () {
             $(this).css({
-                display : 'block',
-                overflow : 'hiiden',
-                opacity : 0
-            }).animate({opacity:1},speed,function () {
-                $(this).css('overflow','');
+                display: 'block',
+                overflow: 'hiiden',
+                opacity: 0
+            }).animate({ opacity: 1 }, speed, function () {
+                $(this).css('overflow', '');
                 fn && fn.call(this)
             })
         })
     }
 
-    Init.prototype.fadeOut = function(speed,fn){
-        return this.each(function(){
-            $(this).css('overflow','hidden').css('display','block').animate({opacity:0},speed,function(){
-                $(this).css('overflow','').css('display','none');
+    Init.prototype.fadeOut = function (speed, fn) {
+        return this.each(function () {
+            $(this).css('overflow', 'hidden').css('display', 'block').animate({ opacity: 0 }, speed, function () {
+                $(this).css('overflow', '').css('display', 'none');
                 fn && fn.call(this);
             })
         })
@@ -565,14 +565,14 @@
         this.each(function () {
             let child = Array.from(this.children);
 
-            if(selector != undefined){
+            if (selector != undefined) {
                 let sel = Array.from(this.querySelectorAll(selector));
-                let temp = sel.filter(e=>{
+                let temp = sel.filter(e => {
                     return child.indexOf(e) != -1;
                 });
-                Array.prototype.push.apply(init,temp);
-            }else {
-                Array.prototype.push.apply(init,child);
+                Array.prototype.push.apply(init, temp);
+            } else {
+                Array.prototype.push.apply(init, child);
             }
         });
         return init;
@@ -580,47 +580,51 @@
 
     Init.prototype.find = function (selector) {
         let init = new Init();
-        this.each(function(){
+        this.each(function () {
             let offs = this.querySelectorAll(selector);
-            Array.prototype.push.apply(init,offs);
+            Array.prototype.push.apply(init, offs);
         })
         return init;
     }
 
-    Init.prototype.append = function(child){
-        if(child instanceof Init){
-            child.each((i,e)=>{
+    Init.prototype.append = function (child) {
+        if (child instanceof Init) {
+            child.each((i, e) => {
                 this[0].appendChild(e);
             })
-        }else if(child instanceof Element){
+        } else if (child instanceof Element) {
             this[0].appendChild(child);
-        }else if (child instanceof NodeList || child instanceof HTMLCollection){
-            for(let i =0; i < child.length; i++){
+        } else if (child instanceof NodeList || child instanceof HTMLCollection) {
+            for (let i = 0; i < child.length; i++) {
                 this[0].appendChild(child[i]);
             }
-        }else if (typeof child == 'string'){
-            let div = document.createElement('div');
+        } else if (typeof child == 'string') {
+            let div = null;
+            if (child.startsWith('<tr')) {
+                div = document.createElement('tbody');
+            } else {
+                div = document.createElement('div');
+            }
             div.innerHTML = child;
             child = div.children;
-            for(let i = child.length - 1; i >= 0; i--){
+            for (let i = child.length - 1; i >= 0; i--) {
                 this[0].appendChild(child[i]);
             }
-
             div = null;
         }
         return this;
     }
 
-    Init.prototype.appendTo = function(target){
-        if(target instanceof Init){
+    Init.prototype.appendTo = function (target) {
+        if (target instanceof Init) {
             target.append(this);
-        }else if(typeof target === 'string'){
+        } else if (typeof target === 'string') {
             $(target).append(this);
         }
     }
 
     // ajx部分
-    hm.ajax = function(opts){
+    hm.ajax = function (opts) {
         opts = opts || {};
         opts.type = opts.type || 'get';
         opts.url = opts.url || '';
@@ -635,10 +639,10 @@
         // console.log(opts);
 
         let data = opts.data;
-        if(typeof opts.data === 'object' && opts.processData === true){
+        if (typeof opts.data === 'object' && opts.processData === true) {
             data = [];
-            for(let key in opts.data){
-                if(opts.data.hasOwnProperty(key)){
+            for (let key in opts.data) {
+                if (opts.data.hasOwnProperty(key)) {
                     data.push(`${key}=${opts.data[key]}`);
                 }
             }
@@ -648,25 +652,25 @@
         // 创建一个异步对象
         let xhr = opts.xhr ? opts.xhr() : new XMLHttpRequest();
         // let xhr = new XMLHttpRequest();
-        if(data && opts.type.toLocaleLowerCase() === 'get'){
+        if (data && opts.type.toLocaleLowerCase() === 'get') {
             opts.url += '?' + data;
         }
-        xhr.open(opts.type,opts.url);
-        if(opts.type.toLocaleLowerCase() === 'post' && opts.contentType){
-            xhr.setRequestHeader('Content-Type',opts.contentType);
+        xhr.open(opts.type, opts.url);
+        if (opts.type.toLocaleLowerCase() === 'post' && opts.contentType) {
+            xhr.setRequestHeader('Content-Type', opts.contentType);
         }
         xhr.send(data);
 
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === 4){
-                if(xhr.status === 200){
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
                     let res = xhr.responseText;
                     // console.log(xhr.getResponseHeader('Content-Type'));
-                    if(xhr.getResponseHeader('Content-Type').indexOf('application/json') != -1){
+                    if (xhr.getResponseHeader('Content-Type').indexOf('application/json') != -1) {
                         res = JSON.parse(xhr.responseText);
                     }
-                    opts.success && opts.success.call(xhr,res);
-                }else {
+                    opts.success && opts.success.call(xhr, res);
+                } else {
                     opts.error && opts.error.call(xhr);
                 }
                 opts.complete && opts.complete.call(xhr);

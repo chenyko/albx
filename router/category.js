@@ -6,6 +6,7 @@ const categoryController=require('../controller/category');
 // 监听分类页面的请求
 router.get('/category.html',categoryController.getCategoryPage);
 
-
+//监听获取所有的分类数据的请求
+router.get('/getAllCategory',categoryController.getAllCategory)
 
 module.exports=router;

@@ -24,6 +24,23 @@
               <p class="help-block">https://zce.me/category/<strong>slug</strong></p>
             </div>
             <div class="form-group">
+              <label for="slug">图标</label>
+              <div class="tubiao-container">
+                <div class="current">
+                  <i class="fa fa-glass"></i>
+                </div>
+                <div class="tubiao-select">
+                  <i class="fa fa-glass"></i>
+                  <i class="fa fa-grav"></i>
+                  <i class="fa fa-user-o"></i>
+                  <i class="fa fa-arrows-h"></i>
+                  <i class="fa fa-check"></i>
+                  <i class="fa fa-fire"></i>
+                  <i class="fa fa-gift"></i>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <button class="btn btn-primary" type="submit">添加</button>
             </div>
           </form>
@@ -43,33 +60,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -77,6 +68,46 @@
     </div>
   </div>
 
-  <%- include('./layouts/aside_layouts') %>
+  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="position:relative;top:100px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">提示</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="modal-msg" class="container-fluid">
+            邮箱格式不正确
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <%- include('./layouts/aside_layouts') %>
   <%- include('./layouts/footer_layouts') %>
+
+  <script type="text/template" id="tp">
+    {{each $data item}}
+      <tr data-id="{{item.id}}">
+        <td class="text-center"><input type="checkbox"></td>
+        <td>{{item.name}}</td>
+        <td>{{item.slug}}</td>
+        <td>
+            <i class="fa {{item.classname}}"></i>
+        </td>
+        <td class="text-center">
+          <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+        </td>
+      </tr>
+    {{/each}}
+  </script>
+  <script src="/assets/vendors/art-template/template-web.js"></script>
+  <script src="/assets/js/category.js"></script>
