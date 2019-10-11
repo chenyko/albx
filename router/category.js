@@ -10,6 +10,6 @@ router.get('/category.html',categoryController.getCategoryPage);
 router.get('/getAllCategory',categoryController.getAllCategory)
 
 // 监听新增请求
-router.get('/addNewCategory',categoryController.addNewCategory)
+router.post('/addNewCategory',categoryController.addNewCategory)
 
 module.exports=router;

@@ -3,7 +3,7 @@ const { connection } = require('./sqlhelper');
 module.exports = {
     // 展示所以的数据
     getAllCategory(callback) {
-        let sql = `select * from categories`;
+        let sql = `SELECT * FROM categories`;
         connection.query(sql, (err, result) => {
             err && console.log(sql);
             callback(result)
@@ -21,6 +21,8 @@ module.exports = {
         let sql= `select * from categories where id=${id}`;
         connection.query(sql,(err,result)=>{
             err && console.log(err);
+            console.log(result);
+            
             callback(result[0]);
         })
     }

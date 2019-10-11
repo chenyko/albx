@@ -5,9 +5,11 @@ $.ajax({
     type: 'get',
     url: "/admin/category/getAllCategory",
     success(res) {
+        // console.log(res);
+        
         if (res.code === 200) {
             // 使用模板引擎导入数据
-            let html = temlate('tp', res, data);
+            let html = template('tp', res.data);
             $('tbody').html(html);
         }
     }
@@ -19,7 +21,7 @@ $('.tubiao-container').on('click', function () {
 })
 
 // 委托的方式给待选择的图标注册点击事件
-$('.tubiao-select').on('click', function () {
+$('.tubiao-select').on('click','.fa', function () {
     let classname = $(this).attr('class');
     $('.current>.fa').attr('class', classname);
 })
@@ -54,6 +56,7 @@ $("#btn-add").on('click', function () {
         url:"/admin/category/addNewCategory",
         data,
         success(res){
+            console.log(res);
             if(res.code===200){
                 $('#modal-msg').text('新增成功');
                 $('#modelId').modal(); 

@@ -15,12 +15,12 @@ module.exports = {
   },
   // 新增方法
   addNewCategory(req, res) {
-    let { classname, name, slur } = req.body;
+    let { classname, name, slug } = req.body;
     categoryModel.addNewCategory(slug, name, classname, result => {
       // 如果新增成功了，同时把新增成功的数据带回浏览器，显示在页面上
       if (result.affectedRows === 1) {
-        let { inserId } = result;
-        categoryModel.getCategoryById(inserId, r => {
+        let { insertId } = result;
+        categoryModel.getCategoryById(insertId, r => {
           if (r) {
             res.send({
               code: 200,
