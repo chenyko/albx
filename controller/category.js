@@ -42,6 +42,32 @@ module.exports = {
         });
       }
     })
+  },
+  // 删除数据的方法
+  deleteCategoryById(req, res) {
+    let { id } = req.query;
+    categoryModel.deleteCategoryById(id, result => {
+      let response = result.affectedRows === 1 ? { code: 200, msg: '操作成功' } : { code: 500, msg: '操作失败' }
+      res.send(response)
+    })
 
+  },
+  // 根据id获取单条数据的方法
+  getCategoryById(req,res){
+    let {id} = req.query;
+    categoryModel.getCategoryById(id,data=>{
+      let response = data ? {code : 200 , msg : '操作成功' , data} : { code : 500 , msg : '操作失败'};
+      res.send(response);
+    });
+  },
+
+  // 修改分类的方法
+  editCateogryById(req,res){
+    let {id,name,slug,classname} = req.body;
+    // 交给model修改
+    categoryModel.editCateogryById(id,name,slug,classname,result=>{
+      let response = result.affectedRows === 1 ? {code : 200 , msg : '操作成功'} : { code : 500 , msg : '操作失败'};
+      res.send(response);
+    });
   }
 }

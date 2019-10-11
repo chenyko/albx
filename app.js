@@ -4,8 +4,9 @@ const bodyParser=require('body-parser');
 const session=require('express-session');
 const userRouter=require('./router/user');
 const indexRouter=require('./router/index');
-const categoryRouter=require('./router/category')
-const commentsRouter=require('./router/comments')
+const categoryRouter=require('./router/category');
+const commentsRouter=require('./router/comments');
+const postsRouter=require('./router/posts')
 const app=express();
 app.listen(8787,()=>{
     console.log('http://localhost:8787');
@@ -29,4 +30,5 @@ app.set('view engine','ejs');
 app.use('/admin/user',userRouter);
 app.use('/admin',indexRouter);
 app.use('/admin/category',categoryRouter);
-app.use('/admin/comments',commentsRouter)
+app.use('/admin/comments',commentsRouter);
+app.use('/admin/posts',postsRouter);
