@@ -26,6 +26,16 @@ module.exports = {
             callback(result)
         })
     },
+
+    // 恢复一条数据的方法
+    resetCategoryById(id,callback){
+        let sql=`UPDATE categories set isDelete = 0 WHERE id=${id}`;
+        connection.query(sql,(err,result)=>{
+            err && console.log(err);
+            callback(result)
+        })
+    },
+
     
     // 获取一条数据的方法
      getCategoryById(id,callback){

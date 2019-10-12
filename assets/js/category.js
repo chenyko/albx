@@ -77,6 +77,7 @@ $("#btn-add").on('click', function () {
                   </tr>`;
                     // 把html追加到tbody里面
                     $('tbody').append(html);
+                    $("#btn-cancel").trigger('click');
                 }
             }
         }
@@ -133,17 +134,18 @@ $('tbody').on('click', '.edit', function () {
 });
 // 给保存按钮添加点击事件
 $('#btn-save').on('click', function () {
-    if ($('#name').val().trim() || $('#slug').val().trim()) {
-        $('#modal-msg').text('姓名或slug不能为空');
-        $('#modelId').modal();
-    };
     let name = $('#name').val();
     let slug = $('#slug').val();
     let classname = $('.current > .fa').attr('class').substring(3);
+    // 简单的验证表单
+    if (name.length===0 ||slug.length===0) {
+        $('#modal-msg').text('姓名或slug不能为空');
+        $('#modelId').modal();
+    };
     // 发送ajax请求
     $.ajax({
         type: 'post',
-        url: '',
+        url: '/admin/category/editCateogryById',
         data: { id, name, slug, classname },
         success: (res) => {
             // 如果不成功就直接终止退出
@@ -183,3 +185,26 @@ $('#btn-cancel').on('click',function(){
 });
 
 // 给弹窗的确定按钮添加点击事件
+$('.modal-footer').on('click','.btn-primary',function(){
+    $('#modelId').css('display','none')
+})
+
+// 给恢复按钮添加点击事件
+$('tbody').on('click', '.reset', function () {
+    // 获取id，把id存储到tr上，通过tr来获取id
+    let id = $(this).parents('tr').attr('data-id');
+    $.ajax({
+        type: 'get',
+        url: '/admin/category/resetCategoryById',
+        data: { id },
+        success: (res) => {
+            if (res.code === 200) {
+                $('#modal-msg').text('操作成功');
+                $('#modelId').modal();
+                // 操作成功后把删除按钮换成恢复按钮
+                $(this).parent().append('<a href="javascript:;" class="btn del btn-danger btn-xs">删除</a>');
+                $(this).remove()
+            }
+        }
+    });
+});

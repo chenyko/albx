@@ -19,7 +19,11 @@ router.get('/deleteCategoryById',categoryController.deleteCategoryById);
 router.get('/getCategoryById',categoryController.getCategoryById);
 
 // 监听修改分类的请求
-router.post('/editCateogryById',categoryController.editCateogryById)
+router.post('/editCateogryById',categoryController.editCateogryById);
+
+// 监听恢复数据的请求
+router.get('/resetCategoryById',categoryController.resetCategoryById)
+
 
 
 module.exports=router;

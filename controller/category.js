@@ -69,5 +69,14 @@ module.exports = {
       let response = result.affectedRows === 1 ? {code : 200 , msg : '操作成功'} : { code : 500 , msg : '操作失败'};
       res.send(response);
     });
+  },
+
+  // 恢复数据的方法
+  resetCategoryById(req,res){
+    let{id}=req.query;
+    categoryModel.resetCategoryById(id,result=>{
+      let response = result.affectedRows === 1 ? { code: 200, msg: '操作成功' } : { code: 500, msg: '操作失败' }
+      res.send(response)
+    })
   }
 }
