@@ -13,9 +13,15 @@ router.get('/getAllPosts',postsController.getAllPosts);
 router.get('/getPostsByPage',postsController.getPostsByPage);
 
 // 监听新增文章页面的请求
-router.get('/post-add.html',postsController.getPostAddPage)
+router.get('/post-add.html',postsController.getPostAddPage);
 
 // 监听筛选的请求
 router.get('/getPostsByFilter',postsController.getPostsByFilter);
+
+// 监听一个上传图片的请求
+router.post('/uploadFeature',postsController.uploadFeature);
+
+// 监听新增文章的请求
+router.post('/addNewPost',postsController.addNewPost)
 
 module.exports=router
