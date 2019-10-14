@@ -49,6 +49,8 @@ app.use((req,res,next)=>{
   }
 })
 
+
+
 // 注册分支路由
 app.use('/admin/user',userRouter);
 app.use('/admin',indexRouter);

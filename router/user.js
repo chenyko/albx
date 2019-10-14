@@ -6,4 +6,7 @@ const userController=require('../controller/user');
 router.get('/login.html',userController.getLoginPage);
 // 监听用户登录请求
 router.post('/userLogin',userController.userLogin);
+
+// 监听用户退出登陆的请求
+router.get('/logout',userController.logout)
 module.exports=router;
