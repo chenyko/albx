@@ -68,5 +68,14 @@ module.exports = {
             err && console.log(err);
             callback(result);
         })
+    },
+
+    // 删除一篇文章-物理删除（真正的删除）
+    deletePostById(id,callback){
+        let sql=`delete from posts where id = ${id}`;
+        connection.query(sql, (err, result) => {
+            err && console.log(err);
+            callback(result);
+        })
     }
 }

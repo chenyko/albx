@@ -22,6 +22,9 @@ router.get('/getPostsByFilter',postsController.getPostsByFilter);
 router.post('/uploadFeature',postsController.uploadFeature);
 
 // 监听新增文章的请求
-router.post('/addNewPost',postsController.addNewPost)
+router.post('/addNewPost',postsController.addNewPost);
+
+// 监听删除文章的请求
+router.get('/deletePostById',postsController.deletePostById)
 
 module.exports=router

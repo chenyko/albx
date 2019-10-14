@@ -118,6 +118,16 @@ module.exports = {
        let response=result.affectedRows===1?{code:200,msg:'ok'}:{code:500,msg:'失败'};
        res.send(response)
     })
+  },
+
+
+  // 删除一篇文章的请求
+  deletePostById(req,res){
+    let {id}=req.query;
+    postModel.deletePostById(id,result=>{
+      let response=result.affectedRows===1?{code:200,msg:'ok'}:{code:500,msg:'失败'};
+       res.send(response)
+    })
   }
 
 

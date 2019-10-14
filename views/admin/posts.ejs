@@ -81,6 +81,51 @@
   </div>
 </div>
 
+<!-- 用于确定删除使用的弹窗 -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+              <div class="modal-header">
+                      <h5 class="modal-title">这是一个标题</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                  </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                  提示信息
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+              <button id="del-sure" type="button" class="btn btn-primary">确定</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- 用来提示删除成功的弹窗 -->
+<div class="modal fade" id="tip" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title">这是一个标题</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                提示信息
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">确定</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
 <%- include('./layouts/aside_layouts') %>
 <%- include('./layouts/footer_layouts') %>
 

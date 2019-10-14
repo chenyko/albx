@@ -88,5 +88,36 @@ $(function () {
   // 调用第一次，让页面一开始就有数据
   getPostByPageAndFilter(1, 10);
 
+  // 把要删除的那一行放在外面
+  let delTr=null;
+  // 实现物理删除
+  $('tbody').on('click','.del',function(){
+  // 提示用户是否要删除
+  $('.modal-title').text('确定要删除这篇文章吗？')
+  $('#modelId').modal();
+  // 获取要删除那一行
+  delTr = $(this).parents('tr');
+  });
+
+  // 给确定删除按钮添加点击事件
+  $('#del-sure').on('click',function(){
+    // 把弹框隐藏
+    $('#modelId').hide();
+    let id=delTr.attr('data-id');
+    // 发送ajax请求
+    $.ajax({
+      type:'get',
+      url:'/admin/posts/deletePostById',
+      data:{ id },
+      success(res){
+     if(res.code===200){
+       delTr.remove()
+      $('.modal-title').text('删除成功')
+      $('#tip').modal();
+     }
+      }
+    });
+  })
+
 })
 
