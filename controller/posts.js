@@ -146,9 +146,16 @@ module.exports = {
       let response = result.affectedRows === 1 ? {code : 200,msg :'ok'}:{code:500,msg:'失败'};
       res.send(response);
     })
-  }
+  },
 
-
+// 批量删除的处理方式
+deletePostByMutiple(req,res){
+  let{ids}=req.query;
+  postModel.deletePostByMutiple(ids,result=>{
+    let response = result.affectedRows === ids.length ? {code : 200,msg :'ok'}:{code:500,msg:'失败'};
+      res.send(response);
+  })
+}
 
 
 }

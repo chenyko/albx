@@ -95,10 +95,20 @@ module.exports = {
         feature='${data.feature}',category_id=${data.category},
         created='${data.created}',\`status\`='${data.status}',
         user_id=${data.user_id} where id = ${data.id}`;
-        console.log(sql);
+        // console.log(sql);
         connection.query(sql,(err,result)=>{
           err && console.log(err);
           callback(result);
         });
-    }
+    },
+
+    // 批量删除
+    deletePostByMutiple(ids,callback){
+        let idsStr = ids.join();
+        let sql = `DELETE FROM posts WHERE id in (${idsStr})`;
+        connection.query(sql,(err,result)=>{
+          err && console.log(err);
+          callback(result);
+        })
+      }
 }

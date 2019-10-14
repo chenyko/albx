@@ -28,9 +28,12 @@ router.post('/addNewPost',postsController.addNewPost);
 router.get('/deletePostById',postsController.deletePostById);
 
 // 监听根据id获取旧数据的方法
-router.get('/getPostsById',postsController.getPostsById)
+router.get('/getPostsById',postsController.getPostsById);
 
 // 监听修改请求
-router.post('/editPostById',postsController.editPostById)
+router.post('/editPostById',postsController.editPostById);
+
+// 监听批量删除
+router.get('/deletePostByMutiple',postsController.deletePostByMutiple);
 
 module.exports=router
