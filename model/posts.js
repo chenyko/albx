@@ -77,5 +77,28 @@ module.exports = {
             err && console.log(err);
             callback(result);
         })
+    },
+
+    // 根据一个id获取旧数据
+    getPostsById(id,callback){
+        let sql = `select * from posts where id = ${id}`;
+        connection.query(sql,(err,result)=>{
+          err && console.log(err);
+          callback(result[0]);
+        })
+      },
+
+    // 根据id修改
+    editPostById(data,callback){
+        let sql = `update posts
+        SET title='${data.title}',content='${data.content}',slug='${data.slug}',
+        feature='${data.feature}',category_id=${data.category},
+        created='${data.created}',\`status\`='${data.status}',
+        user_id=${data.user_id} where id = ${data.id}`;
+        console.log(sql);
+        connection.query(sql,(err,result)=>{
+          err && console.log(err);
+          callback(result);
+        });
     }
 }

@@ -128,6 +128,24 @@ module.exports = {
       let response=result.affectedRows===1?{code:200,msg:'ok'}:{code:500,msg:'失败'};
        res.send(response)
     })
+  },
+
+  // 根据id获取旧数据的方法
+  getPostsById(req,res){
+    let {id} = req.query;
+    postModel.getPostsById(id,data=>{
+      let response = data ? {code : 200,msg :'ok' , data }:{code:500,msg:'失败'};
+      res.send(response);
+    })
+  },
+
+  // 编辑修改文章的处理方式
+  editPostById(req,res){
+    req.body.user_id = req.session.userInfo.id;
+    postModel.editPostById(req.body,result=>{
+      let response = result.affectedRows === 1 ? {code : 200,msg :'ok'}:{code:500,msg:'失败'};
+      res.send(response);
+    })
   }
 
 

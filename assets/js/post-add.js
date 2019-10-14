@@ -12,7 +12,7 @@ $(function () {
     // 使用FormData把文件变为流形式
     let fd = new FormData();
     // console.log(file);
-    
+
     fd.append('feature', file);
 
     // 发送ajax请求
@@ -50,33 +50,89 @@ $(function () {
     }
   });
 
-  // 给保存按钮添加点击事件
-  $('#btn-save').on('click', function () {
-    // 基本的表单验证
-    if ($('#title').val().trim().length === 0 || $("#content").val().trim().length) {
-      $('#modal-msg').text('标题或者内容不能为空');
-      $('#modelId').modal();
-    };
-    // 富文本编辑器里面的内容更新回文本域
-  CKEDITOR.instances.content.updateElement();
-  // 收集表單數據
-  let data = $('form').serialize()
 
-  // 發送ajax請求
-  $.ajax({
-    type: 'post',
-    url: '/admin/posts/addNewPost',
-    data,
-    seccuss(res) {
-      if (res.code === 200) {
-        $('#modal-msg').text('操作成功');
-        $('#modelId').modal();
+
+  // 现在是新增和编辑使用同一个页面，我们就需要明确，这个页面现在到底是新增还是编辑
+  // 新增不会带id过来，编辑url里面是有id
+  let id = location.search.substring(4);
+  //  console.log(id);
+  if (id) {
+    // 编辑
+    // 发送ajax请求获取旧的数据
+    $.ajax({
+      type: 'get',
+      url: '/admin/posts/getPostsById',
+      data: { id },
+      success(res) {
+        // 把id放在一个隐藏域里面
+        $('form').append(`<input type="hidden" name="id" value="${id}"`);
+        // 把数据填在表单里面
+        $('#title').val(res.data.title);
+        $('#content').val(res.data.content);
+        // 把文本域变成富文本
+        CKEDITOR.replace('content');
+        $("#slug").val(res.data.slug);
+        $("#title").val(res.data.title);
+        // 处理图片
+        $('.tumbnail').attr('src', res.data.feature).show();
+        // 把图片地址存储到隐藏域的value里面
+        $('#imgSrc').val(res.data.feature);
+        // 设置下拉框的valu，就可以实现下拉框某个选项被选中
+        $('#category').val(res.data.category_id);
+        // 设置时间 时间控件的格式是：2019-10-13T12:12 服务器需要的是：1970-01-19T03:20:55.000Z
+        // 把多余的部分切掉 长度是16位
+        $('#created').val(res.data.created).substring(0, 16);
+        // 设置状态
+        $('#status').val(res.data.status);
       }
-    }
-  })
-  })
-  
+    });
 
+    // 给保存按钮添加点击事件
+    $('#btn-save').on('click', function () {
+      //     // 因为使用了富文本，需要先摧毁富文本
+      CKEDITOR.instances.content.updateElement();
+      //     // 收集表单数据
+      let data = $('form').serialize();
+      // 发送ajax请求
+      $.ajax({
+        type: "post",
+        url: "/admin/posts/editPostById",
+        data,
+        success(res) {
+          // console.log(res);
 
+        }
 
+      })
+
+    });
+
+  } else {
+    //  新增
+    // 给保存按钮添加点击事件
+    $('#btn-save').on('click', function () {
+      // 基本的表单验证
+      if ($('#title').val().trim().length === 0 || $("#content").val().trim().length) {
+        $('#modal-msg').text('标题或者内容不能为空');
+        $('#modelId').modal();
+      };
+      // 富文本编辑器里面的内容更新回文本域
+      CKEDITOR.instances.content.updateElement();
+      // 收集表單數據
+      let data = $('form').serialize()
+
+      // 發送ajax請求
+      $.ajax({
+        type: 'post',
+        url: '/admin/posts/addNewPost',
+        data,
+        seccuss(res) {
+          if (res.code === 200) {
+            $('#modal-msg').text('操作成功');
+            $('#modelId').modal();
+          }
+        }
+      })
+    })
+  };
 })

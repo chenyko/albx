@@ -25,6 +25,12 @@ router.post('/uploadFeature',postsController.uploadFeature);
 router.post('/addNewPost',postsController.addNewPost);
 
 // 监听删除文章的请求
-router.get('/deletePostById',postsController.deletePostById)
+router.get('/deletePostById',postsController.deletePostById);
+
+// 监听根据id获取旧数据的方法
+router.get('/getPostsById',postsController.getPostsById)
+
+// 监听修改请求
+router.post('/editPostById',postsController.editPostById)
 
 module.exports=router
