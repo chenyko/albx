@@ -7,7 +7,10 @@ const userRouter=require('./router/user');
 const indexRouter=require('./router/index');
 const categoryRouter=require('./router/category');
 const commentsRouter=require('./router/comments');
-const postsRouter=require('./router/posts')
+const postsRouter=require('./router/posts');
+// 前台页面的注册
+const frontSideRouter=require('./router/frontSide')
+
 const app=express();
 app.listen(8787,()=>{
     console.log('http://localhost:8787');
@@ -35,8 +38,8 @@ app.set('view engine','ejs');
 app.use((req,res,next)=>{
   // url里面可能还带有参数，所以需要解析一下
   let {pathname}=url.parse(req.url);
-  // 判断是否是登陆页面，如果是登陆页面就不需要做权限控制
-  if(pathname==='/admin/user/login.html'||pathname==="/admin/user/userLogin"){
+  // 判断是否是登陆页面，如果是登陆页面就不需要做权限控制 不是请求后台页面不需要权限控制
+  if(pathname==='/admin/user/login.html'||pathname==="/admin/user/userLogin"||!pathname.startsWith('/admin')){
     // 执行一一个中间键
     next();
   }else{
@@ -57,3 +60,5 @@ app.use('/admin',indexRouter);
 app.use('/admin/category',categoryRouter);
 app.use('/admin/comments',commentsRouter);
 app.use('/admin/posts',postsRouter);
+// 注册前台路由  约定好，前台页面是不需要以任何的特殊单词开头
+app.use(frontSideRouter)
