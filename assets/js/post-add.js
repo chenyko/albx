@@ -65,7 +65,7 @@ $(function () {
       data: { id },
       success(res) {
         // 把id放在一个隐藏域里面
-        $('form').append(`<input type="hidden" name="id" value="${id}"`);
+        $('form').append(`<input type="hidden" name="id" value="${id}">`);
         // 把数据填在表单里面
         $('#title').val(res.data.title);
         $('#content').val(res.data.content);
@@ -74,14 +74,17 @@ $(function () {
         $("#slug").val(res.data.slug);
         $("#title").val(res.data.title);
         // 处理图片
-        $('.tumbnail').attr('src', res.data.feature).show();
+        $('.thumbnail').attr('src', res.data.feature).show();
         // 把图片地址存储到隐藏域的value里面
         $('#imgSrc').val(res.data.feature);
         // 设置下拉框的valu，就可以实现下拉框某个选项被选中
         $('#category').val(res.data.category_id);
         // 设置时间 时间控件的格式是：2019-10-13T12:12 服务器需要的是：1970-01-19T03:20:55.000Z
         // 把多余的部分切掉 长度是16位
-        $('#created').val(res.data.created).substring(0, 16);
+        // console.log(res.data.created);
+        $('#created').val(res.data.created.substring(0,16))
+      
+         
         // 设置状态
         $('#status').val(res.data.status);
       }
@@ -93,6 +96,8 @@ $(function () {
       CKEDITOR.instances.content.updateElement();
       //     // 收集表单数据
       let data = $('form').serialize();
+      console.log(data);
+      
       // 发送ajax请求
       $.ajax({
         type: "post",
@@ -112,22 +117,24 @@ $(function () {
     // 给保存按钮添加点击事件
     $('#btn-save').on('click', function () {
       // 基本的表单验证
-      if ($('#title').val().trim().length === 0 || $("#content").val().trim().length) {
-        $('#modal-msg').text('标题或者内容不能为空');
-        $('#modelId').modal();
-      };
+      // if ($('#title').val().trim().length === 0 || $("#content").val().trim().length) {
+      //   $('#modal-msg').text('标题或者内容不能为空');
+      //   $('#modelId').modal();
+      // };
       // 富文本编辑器里面的内容更新回文本域
       CKEDITOR.instances.content.updateElement();
       // 收集表單數據
       let data = $('form').serialize()
+console.log(data);
 
       // 發送ajax請求
       $.ajax({
         type: 'post',
         url: '/admin/posts/addNewPost',
         data,
-        seccuss(res) {
+        success(res) {
           if (res.code === 200) {
+            console.log(res)
             $('#modal-msg').text('操作成功');
             $('#modelId').modal();
           }

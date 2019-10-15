@@ -33,7 +33,7 @@ module.exports = {
   },
   getPostAddPage(req, res) {
     res.render('admin/post-add');
-    res.render('index')
+   
   },
   getPostsByFilter(req, res) {
     // 得到条件
@@ -94,7 +94,7 @@ module.exports = {
          
         let {path} = files.feature;
         let start = path.indexOf('uploads');
-        let src = '/' + path.substring(start);
+        let src = '/' + path.substring(start).replace('\\','/');
         console.log(src);
         res.send({
           code:200,
@@ -142,7 +142,11 @@ module.exports = {
   // 编辑修改文章的处理方式
   editPostById(req,res){
     req.body.user_id = req.session.userInfo.id;
+    // console.log(req.body.user_id);
+    
     postModel.editPostById(req.body,result=>{
+     
+      
       let response = result.affectedRows === 1 ? {code : 200,msg :'ok'}:{code:500,msg:'失败'};
       res.send(response);
     })

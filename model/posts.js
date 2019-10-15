@@ -59,11 +59,13 @@ module.exports = {
 
     //   新增一篇文章
     addNewPost(data, callback) {
+         console.log(data);
+        
         let sql = `INSERT INTO posts
-     SET title='${data.title}',content='${data.content}',slug='${data.slug}',
-     feature='${data.feature}',category_id=${data.category},
-     created='${data.created}',\`status\`='${data.status}',
-     user_id=${data.user_id}`;
+        SET title='${data.title}',content='${data.content}',slug='${data.slug}',
+        feature='${data.feature}',category_id=${data.category},
+        created='${data.created}',\`status\`='${data.status}',
+        user_id=${data.user_id};`;
         connection.query(sql, (err, result) => {
             err && console.log(err);
             callback(result);
@@ -90,6 +92,8 @@ module.exports = {
 
     // 根据id修改
     editPostById(data,callback){
+        console.log(data);
+        
         let sql = `update posts
         SET title='${data.title}',content='${data.content}',slug='${data.slug}',
         feature='${data.feature}',category_id=${data.category},
