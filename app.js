@@ -9,7 +9,7 @@ const categoryRouter=require('./router/category');
 const commentsRouter=require('./router/comments');
 const postsRouter=require('./router/posts');
 // 前台页面的注册
-const frontSideRouter=require('./router/frontSide')
+ const frontSideRouter=require('./router/frontSide')
 
 const app=express();
 app.listen(8787,()=>{
@@ -61,4 +61,4 @@ app.use('/admin/category',categoryRouter);
 app.use('/admin/comments',commentsRouter);
 app.use('/admin/posts',postsRouter);
 // 注册前台路由  约定好，前台页面是不需要以任何的特殊单词开头
-app.use(frontSideRouter)
+ app.use(frontSideRouter)
